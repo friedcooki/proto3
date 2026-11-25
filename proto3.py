@@ -68,20 +68,47 @@ class Ball(pygame.sprite.Sprite):
     def draw(self):
         self.add(playBalls)
         ret = pygame.sprite.LayeredUpdates.draw(self,screen)
+        
+class Cue():
+    def __init__(self,pos,scale):
+        self.image = pygame.image.load("cue.png").convert_alpha()
+        self.scale = scale
+        self.image = pygame.transform.scale(self.image,(int(self.image.get_width()*self.scale),int(self.image.get_height()*self.scale)))
+        #look at coding with russ
+        self.angle = 0 #radians
+        
 #ball images
 redImg = "redBall.png"
 yellowImg = "yellowBall.png"
-
+blackImg = "blackBall.png"
+whiteImg = "cue.png"
 #red ball objects
-Red1 = Ball(redImg,450,560,0.15)
-Red2 = Ball(redImg,550,520,0.15)
+Red1 = Ball(redImg,495,560,0.15)
+Red2 = Ball(redImg,565,520,0.15)
 Red3 = Ball(redImg,600,500,0.15)
+Red4 = Ball(redImg,460,490,0.15)
+Red5 = Ball(redImg,495,470,0.15)
+Red6 = Ball(redImg,530,450,0.15)
+Red7 = Ball(redImg,460,400,0.15)
 #yellow ball objects
-Yellow1 = Ball(yellowImg,500,540,0.09)
-Yellow2 = Ball(yellowImg,400,580,0.09)
+Yellow1 = Ball(yellowImg,530,540,0.09)
+Yellow2 = Ball(yellowImg,460,580,0.09)
+Yellow3 = Ball(yellowImg,460,535,0.09)
+Yellow4 = Ball(yellowImg,495,515,0.09)
+Yellow5 = Ball(yellowImg,565,475,0.09)
+Yellow6 = Ball(yellowImg,460,445,0.09)
+Yellow7 = Ball(yellowImg,495,425,0.09)
+#black ball object
+Black1 = Ball(blackImg,530,495,0.042)
+#cue ball object
+White1 = Ball(whiteImg,1400,500,0.1)
+
 #ball sprite groups
 playBalls = pygame.sprite.Group()
-playBalls.add(Red1,Red2,Red3,Yellow1,Yellow2)
+interactBall=pygame.sprite.Group()
+playBalls.add(Red1,Red2,Red3,Yellow1,Yellow2,Yellow3,Yellow4,Black1,Yellow5,Red4,Red5,Red6,Yellow6,Yellow7,Red7)
+interactBall.add(White1)
+
 pygame.sprite.Sprite.visible = True
 
 #game loop
@@ -93,6 +120,7 @@ while run:
 
     #draws the ball's group
     playBalls.draw(screen)
+    interactBall.draw(screen)
 
     #event loop
     for event in events:
